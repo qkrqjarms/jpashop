@@ -1,7 +1,5 @@
 package jpabook.jpashop.controller;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +18,13 @@ public class ItemController {
     private final ItemService itemService;
 
     @GetMapping("/items/new")
-    public String createForm(Model model){
+    public String createForm(Model model) {
         model.addAttribute("form", new BookForm());
         return "items/createItemForm";
     }
 
     @PostMapping("/items/new")
-    public String create(BookForm form){
+    public String create(BookForm form) {
         Book book = new Book();
         book.setName(form.getName());
         book.setAuthor(form.getAuthor());
@@ -39,20 +37,18 @@ public class ItemController {
     }
 
     @GetMapping("/items")
-    public String list(Model model){
-        
-        model.addAttribute("items", itemService.findItems());
+    public String list(Model model) {
 
+        model.addAttribute("items", itemService.findItems());
 
         return "items/itemList";
     }
 
     @GetMapping("/items/{id}/edit")
-    public String updateItemForm(@PathVariable("id") Long id, Model model){
+    public String updateItemForm(@PathVariable("id") Long id, Model model) {
         Book book = (Book) itemService.findOnd(id);
 
         BookForm bookForm = new BookForm();
-
 
         bookForm.setAuthor(book.getAuthor());
         bookForm.setId(book.getId());
@@ -66,9 +62,8 @@ public class ItemController {
 
     }
 
-    
     @PostMapping("/items/{id}/edit")
-    public String updateItem(@ModelAttribute("form")BookForm form){
+    public String updateItem(@ModelAttribute("form") BookForm form) {
 
         Book book = new Book();
         book.setAuthor(form.getAuthor());
